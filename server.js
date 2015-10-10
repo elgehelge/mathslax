@@ -3,6 +3,7 @@ var BodyParser = require('body-parser');
 var Jade = require('jade');
 var Typeset = require('./typeset.js');
 var util = require('util');
+var request = require('request');
 
 var SERVER = process.env.SERVER || '127.0.0.1';
 var PORT = process.env.PORT || '8080';
@@ -28,7 +29,9 @@ router.post('/typeset', function(req, res) {
     var locals = {'mathObjects': mathObjects,
                   'serverAddress': util.format('http://%s:%s/', SERVER, PORT)};
     var htmlResult = Jade.renderFile('./views/slack-response.jade', locals);
-    res.json(
+    res.end();
+    var webhook = "https://hooks.slack.com/services/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";
+    var data = 
       {
         "username": "MathJax bot",
         "icon_url": "https://marketplace-cdn.atlassian.com/files/icons/876612_high.png",
@@ -42,7 +45,13 @@ router.post('/typeset', function(req, res) {
         ]
       }
     );
-    res.end();
+    request.post(webhook, data,
+      function (error, response, body) {
+        console.log(error);
+        console.log(response);
+        console.log(body);
+      }
+    );
   };
   var promiseError = function(error) {
     console.log('Error in typesetting:');
