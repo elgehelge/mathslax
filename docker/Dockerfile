@@ -1,7 +1,5 @@
 FROM debian:jessie
 
-MAINTAINER Colby Gutierrez-Kraybill <colbygk@media.mit.edu>
-
 RUN apt-get clean && apt-get update && apt-get upgrade -y
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
@@ -14,7 +12,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
 
 RUN ln -s /usr/bin/nodejs /usr/bin/node
 
-ENV SERVER slackjobs.media.mit.edu
+ENV SERVER YOUR-SERVER
 ENV PORT 8099
 
 EXPOSE 8099
