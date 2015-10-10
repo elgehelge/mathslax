@@ -28,7 +28,20 @@ router.post('/typeset', function(req, res) {
     var locals = {'mathObjects': mathObjects,
                   'serverAddress': util.format('http://%s:%s/', SERVER, PORT)};
     var htmlResult = Jade.renderFile('./views/slack-response.jade', locals);
-    res.json({'text' : htmlResult});
+    res.json(
+      {
+        "username": "MathJax bot",
+        "icon_url": "https://marketplace-cdn.atlassian.com/files/icons/876612_high.png",
+
+        "attachments": [
+          {
+            "fallback": "<" + htmlResult + "|Click here> to see MathJax of " + requestString,
+            "text": "MathJax of " + requestString,
+            "image_url": htmlResult
+          }
+        ]
+      }
+    );
     res.end();
   };
   var promiseError = function(error) {
