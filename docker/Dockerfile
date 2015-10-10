@@ -17,7 +17,7 @@ ENV PORT 8099
 
 EXPOSE 8099
 
-RUN git clone https://github.com/colbygk/mathslax.git
+RUN git clone https://github.com/elgehelge/mathslax.git
 WORKDIR /mathslax
 RUN make install
 
