@@ -45,6 +45,7 @@ router.post('/typeset', function(req, res) {
         ]
       }
     );
+    console.log("Now POSTing to webhook!");
     request.post(webhook, data,
       function (error, response, body) {
         console.log(error);
